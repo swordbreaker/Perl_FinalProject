@@ -1,2 +1,3 @@
 .vstags
 *.tmp
+.vscode/
