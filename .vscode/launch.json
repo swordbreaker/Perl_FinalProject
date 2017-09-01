@@ -1,0 +1,18 @@
+{
+    "version": "0.0.6",
+    "configurations": [
+        {
+            "type": "perl",
+            "request": "launch",
+            "exec": "perl",
+            "execArgs": [],
+            "name": "Perl-Debug",
+            "root": "${workspaceRoot}\\",
+            "program": "${workspaceRoot}\\ScoreExams.pl",
+            "inc": [],
+            "args": ["AssignmentDataFiles\\MasterFiles\\short_exam_master_file.txt", "*-short_exam_*"],
+            "env": {},
+            "stopOnEntry": true
+        }
+    ]
+}
