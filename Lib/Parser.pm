@@ -91,7 +91,6 @@ sub parseQuestions()
 
         $questions{$question} = \@answers;
 
-        #skip the empty lines so that the next line is ether a question or a separator which indicates the end of the document
         skip($separatorRegex);
         skipEmptyLines();
 
@@ -145,7 +144,7 @@ sub parseMultipleChoice()
         my $question = $2;
 
         $question ne "" || !defined $question 
-            or die Parser::createErrorMessage('Parse error the answer is empty of the multiple choice');
+            or die Parser::createErrorMessage('Parse error the answer is empty');
 
         return ([$question, isCrossed($x)], parseMultipleChoice());
     }

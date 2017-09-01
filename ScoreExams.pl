@@ -27,9 +27,9 @@ use List::Util qw(min);
              perl ScoreExams.pl AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file.txt *-short_exam_master_*.txt
 =cut
 
-main(@ARGV);
-
 use constant EDIT_THRESHOLD => 0.1;
+
+main(@ARGV);
 
 =item main(@args)
     The main method of the script.
@@ -59,7 +59,6 @@ sub main(@args)
     scalar(@studentsFiles) > 0 or die "no files found with the given pattern"; 
 
     my @statistics; # [{score => 0, answeredQuestions => 0, file => "", answerBinaryMatrix => 0}]
-
 
     (my $a, my $b, my %questionsMaster) = Parser::parse($masterFile);
     foreach my $file (@studentsFiles)

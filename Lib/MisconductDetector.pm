@@ -36,16 +36,8 @@ sub identifyingPossibleAcademicMisconduct($statisticsRef, $maxQuestions)
     
     for(my $i = 0; $i < $length - 1; $i++)
     {
-        for(my $k = $i+1; $k < $length; $k++)
-        {
-            #compare student $i with student $k if $i != $k
-        }
-    }
-
-    for(my $i = 0; $i < $length - 1; $i++)
-    {
         my $statsARef = $statistics[$i];
-        my $binMatrixRefA = $statsARef->{'answerBinaryMatrix'};
+        my $binMatrixARef = $statsARef->{'answerBinaryMatrix'};
 
         for(my $k = $i+1; $k < $length; $k++)
         {
@@ -56,13 +48,14 @@ sub identifyingPossibleAcademicMisconduct($statisticsRef, $maxQuestions)
             #When one of the has everything right. We don't need to compare the files.
             next if $statsARef->{'score'} == $maxQuestions || $statsBRef->{'score'} == $maxQuestions;
 
-            my $binMatrixRefB = $statsBRef->{'answerBinaryMatrix'};
-            my %data = compare($binMatrixRefA, $binMatrixRefB);
+            my $binMatrixBRef = $statsBRef->{'answerBinaryMatrix'};
+            my %data = compare($binMatrixARef, $binMatrixBRef);
             
             if($data{'sameWrongPercentage'} > SAME_WRONG_THRESHOLD && $data{'sameRightPercentage'} > SAME_WRIGHT_THRESHOLD)
             {
                 my $minScore = min($statsARef->{'score'}, $statsBRef->{'score'});
                 my $probability = $data{'samePercentage'} * (1 - ($minScore/$maxQuestions*0.6));
+
                 say "    " . $statsARef->{'file'} . " (score: $statsARef->{'score'})";
                 say 'and ' . $statsBRef->{'file'} . " (score: $statsBRef->{'score'}) \t probability $probability";
                 say "Questions which were answered the same:\t\t" . toPercent($data{'samePercentage'});
@@ -101,7 +94,7 @@ sub compare($matrixA, $matrixB)
     (
         sameRightPercentage => 0,
         sameWrongPercentage => 0,
-        samePercentage => 0,
+        samePercentage => 0
     );
 
     my ($sameRightCount, $sameWrongCount, $sameCount) = 0;
@@ -123,7 +116,7 @@ sub compare($matrixA, $matrixB)
             (($a | 1) == $a) ? $sameRightCount++ : $sameWrongCount++;
         }
 
-        # #check if a/b have answered the question right
+        #check if a/b have answered the question right
         (($a | 1) == $a) ? $aRightCount++ : $aWrongCount++;
         (($b | 1) == $b) ? $bRightCount++ : $bWrongCount++;
     }
