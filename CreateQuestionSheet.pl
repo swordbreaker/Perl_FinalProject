@@ -17,8 +17,8 @@ use File::Basename;
         [master_file_path] the path to the master file
         [debug] optional flag. When set then the created sheet will be answered randomly.
 
-    Example: perl CreateQuestionSheet.pl AssignmentDataFiles\MasterFiles\FHNW_entrance_exam_master_file.txt
-                perl CreateQuestionSheet.pl AssignmentDataFiles\MasterFiles\short_exam_master_file.txt debug
+    Example:    perl CreateQuestionSheet.pl AssignmentDataFiles/MasterFiles/FHNW_entrance_exam_master_file.txt
+                perl CreateQuestionSheet.pl AssignmentDataFiles/MasterFiles/short_exam_master_file.txt debug
 =cut
 
 main(@ARGV);
