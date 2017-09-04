@@ -34,6 +34,7 @@ sub identifyingPossibleAcademicMisconduct($statisticsRef, $maxQuestions)
     say "";
     say "Similar patterns of answers:";
     
+    #go throw every combination once (when a <=> b we dont need to compare b <=> a)
     for(my $i = 0; $i < $length - 1; $i++)
     {
         my $statsARef = $statistics[$i];
@@ -45,7 +46,7 @@ sub identifyingPossibleAcademicMisconduct($statisticsRef, $maxQuestions)
 
             #we dont need to compare the same element
             next if $i == $k;
-            #When one of the has everything right. We don't need to compare the files.
+            #When one has everything right. We don't need to compare the files.
             next if $statsARef->{'score'} == $maxQuestions || $statsBRef->{'score'} == $maxQuestions;
 
             my $binMatrixBRef = $statsBRef->{'answerBinaryMatrix'};

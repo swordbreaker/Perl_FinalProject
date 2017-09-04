@@ -9,6 +9,7 @@ our @EXPORT  = qw(saveToFile);
 
 =head1 Stopwords
     This module returns a list of stop words... yeah really nothing more to see here.
+    Source: http://xpo6.com/list-of-english-stop-words/ 
 =cut
 
 my @stopwords = (

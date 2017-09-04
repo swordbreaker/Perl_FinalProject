@@ -6,7 +6,7 @@ use FindBin;
 use lib "$FindBin::Bin/Lib";
 
 use Stopwords qw(saveToFile);
-use Parser qw(parse);
+use Parser qw(parse sortKeys);
 use Writer qw(saveToFile);
 use Statistics qw(printStats);
 use MisconductDetector qw(identifyingPossibleAcademicMisconduct);
@@ -99,7 +99,7 @@ sub compareFiles($studentFile, %questionsMaster)
     my @answerBinaryMatrix;
 
     #todo sort hash
-    foreach my $question (sort keys %questionsMaster)
+    foreach my $question (Parser::sortKeys(%questionsMaster))
     {
         my $correctOptionRef = %questionsMaster{$question};
         my $usedQuestion = undef;

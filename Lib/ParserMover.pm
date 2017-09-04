@@ -5,7 +5,7 @@ use strict;
 use experimental 'signatures';
 
 use Exporter 'import';
-our @EXPORT  = qw(init cosumeLine peekLine isEmpty length getFileLine);
+our @EXPORT  = qw(init consumeLine peekLine isEmpty length getFileLine);
 
 =head1 ParserMover
     This module is used by the Parser it takes track of the current line.

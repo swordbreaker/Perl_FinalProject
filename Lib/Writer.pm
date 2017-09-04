@@ -8,6 +8,7 @@ use Exporter 'import';
 our @EXPORT  = qw(saveToFile debugSaveRandomFilled);
 
 use List::Util qw(shuffle);
+use Parser qw(sortKeys);
 
 =head1 Writer
     This module writes the parsed information to a file.
@@ -34,7 +35,7 @@ sub saveToFile($file, $intro, $separator, %questions)
     print $fileHandle $intro;
     print $fileHandle $separator;
 
-    foreach my $question (sort keys %questions)
+    foreach my $question (Parser::sortKeys(%questions))
     {
         my $options = $questions{$question};
         say $fileHandle "";
@@ -63,7 +64,7 @@ sub debugSaveRandomFilled($file, $intro, $separator, %questions)
     print $fileHandle $intro;
     print $fileHandle $separator;
 
-    foreach my $question (sort keys %questions)
+    foreach my $question (sort (keys  %questions))
     {
         my $options = $questions{$question};
         say $fileHandle "";

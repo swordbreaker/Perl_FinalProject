@@ -5,9 +5,9 @@ use strict;
 use experimental 'signatures';
 
 use Exporter 'import';
-our @EXPORT  = qw(parse);
+our @EXPORT  = qw(parse sortKeys);
 
-use ParserMover qw(init cosumeLine peekLine isEmpty length getFileLine);
+use ParserMover qw(init consumeLine peekLine isEmpty length getFileLine);
 
 =head1 Parser
     This module parses a file and returns information about the questions and answers.
@@ -57,6 +57,7 @@ sub parseIntro()
 {
     my $line = ParserMover::consumeLine();
     
+    #parse till a line matches the separator regex.
     if($line =~ m/$separatorRegex/)
     {
         $separator = $line;
@@ -64,7 +65,7 @@ sub parseIntro()
     }
     else
     {
-        my $introText .= $line;
+        my $introText = $line;
         return $introText . parseIntro();
     }
 }
@@ -109,6 +110,8 @@ sub parseQuestions()
 sub parseQuestionBlock()
 {
     my $line = ParserMover::consumeLine();
+
+    #parse till the line matches with the empty line regex.
     if($line =~ m/$emptyLineRegex/)
     {
         return "";
@@ -209,6 +212,36 @@ sub trim($value)
 {
     $value =~ s/^\s+|\s+$//g;
     return $value;
+}
+
+=item sortKeys(%questions)
+    Sort the questions key after their number.
+
+    Input: 
+        %questions: Hash produced by the parse subroutine
+
+    Output
+        @list:@strings: A list of sorted questions.
+=cut
+sub sortKeys(%questions)
+{
+    my @list = sort { getNumberFormQuestion($a) <=> getNumberFormQuestion($b) } (keys %questions);
+    return @list;
+}
+
+=item getNumberFormQuestion($question)
+    Search for a Number in a string
+
+    Input: 
+        $question:string
+
+    Output
+        int the first found number.
+=cut
+sub getNumberFormQuestion($question)
+{
+    $question =~ m/.*? (\d+) .*?/x;
+    return $1;
 }
 
 1;
